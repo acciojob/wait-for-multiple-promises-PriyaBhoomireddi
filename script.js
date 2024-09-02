@@ -47,3 +47,26 @@ document.addEventListener("DOMContentLoaded", function () {
     output.appendChild(totalRow);
   });
 });
+describe('Promise Table Test', () => {
+  it('should display "Loading..." and then show resolved promises with time taken', () => {
+    cy.visit(baseUrl + "/main.html");
+
+    // Check for the loading text
+    cy.get("tr#loading", { timeout: 10000 }) // Increased timeout to ensure element is found
+      .find("td")
+      .invoke("text")
+      .then((text) => {
+        expect(text.trim()).to.equal("Loading...");
+      });
+
+    // Wait for the promises to resolve and check the results
+    cy.get("tbody#output tr")
+      .should('have.length', 4) // Ensure there are 4 rows after loading (3 promises + total)
+      .then((rows) => {
+        cy.wrap(rows[0]).find('td').first().should('have.text', 'Promise 1');
+        cy.wrap(rows[1]).find('td').first().should('have.text', 'Promise 2');
+        cy.wrap(rows[2]).find('td').first().should('have.text', 'Promise 3');
+        cy.wrap(rows[3]).find('td').first().should('have.text', 'Total');
+      });
+  });
+});
