@@ -1,10 +1,9 @@
-//your JS code here. If required.
-// script.js
 document.addEventListener("DOMContentLoaded", function () {
   const output = document.getElementById("output");
 
-  // Add the "Loading..." row
+  // Add the "Loading..." row with id="loading"
   const loadingRow = document.createElement("tr");
+  loadingRow.setAttribute("id", "loading");
   loadingRow.innerHTML = `<td colspan="2">Loading...</td>`;
   output.appendChild(loadingRow);
 
@@ -48,4 +47,3 @@ document.addEventListener("DOMContentLoaded", function () {
     output.appendChild(totalRow);
   });
 });
-
